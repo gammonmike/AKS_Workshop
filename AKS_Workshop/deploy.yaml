@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: aks-workshop
-        image: gammondev.azurecr.io/aks-workshop:$BUILD_ID
+        image: gammondev.azurecr.io/gammonmike/aks_workshop:$BUILD_ID
         ports:
         - containerPort: 80
 ---
