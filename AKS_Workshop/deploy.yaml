@@ -1,0 +1,38 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: AKS_Workshop
+  labels:
+    app: AKS_Workshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: AKS_Workshop
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: AKS_Workshop
+    spec:
+      containers:
+      - name: AKS_Workshop
+        image: gammondev.azurecr.io/AKS_Workshop:$BUILD_ID
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: AKS_Workshop
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: AKS_Workshop									
